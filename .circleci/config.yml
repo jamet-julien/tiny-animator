@@ -1,0 +1,29 @@
+version: 2.1
+orbs:
+    codecov: codecov/codecov@1.0.2
+jobs:
+    build:
+        docker:
+            - image: "circleci/node:latest"
+        steps:
+            - checkout
+
+            - restore_cache:
+                  keys:
+                      - v1-dependencies-{{ checksum "package.json" }}
+                      - v1-dependencies-
+            - run:
+                  name: Install dependencies
+                  command: npm install --no-lockfile
+            - run:
+                  name: Run tests
+                  command: npm t
+            - run:
+                  name: Run build
+                  command: npm run build
+            - run:
+                  name: Report coverage
+                  command: npm run report-coverage
+            - run:
+                  name: release
+                  command: npm run semantic-release || true
