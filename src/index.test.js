@@ -1,16 +1,18 @@
-import Package from "./index";
+import Animator from "./index";
 
 describe("Start", () => {
     it("First import right", () => {
-        expect(typeof Package).toBe("function");
+        expect(typeof Animator).toBe("function");
     });
 
     it("Required functions", () => {
-        const instance = Package();
-        expect(instance).toHaveProperty("property");
+        const instance = Animator({}, {}, {});
+        expect(instance).toHaveProperty("restart");
+        expect(instance).toHaveProperty("stop");
+        expect(instance).toHaveProperty("update");
     });
 
     it("Launched", () => {
-        const instance = Package();
+        const instance = Animator();
     });
 });
