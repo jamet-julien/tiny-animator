@@ -43,6 +43,7 @@
         "jest": "24.9.0",
         "npm-run-all": "4.1.5",
         "rimraf": "3.0.0",
+        "semantic-release": "15.13.31",
         "webpack": "4.41.2",
         "webpack-cli": "3.3.10"
     },
@@ -51,8 +52,7 @@
             "path": "node_modules/cz-conventional-changelog"
         },
         "ghooks": {
-            "pre-commit": "npm t",
-            "pre-push": "npm publish"
+            "pre-commit": "npm t"
         }
     },
     "jest": {
