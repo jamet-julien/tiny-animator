@@ -1,10 +1,10 @@
-# Animator
+# tiny-animator
 
-[![CircleCI Status](https://circleci.com/gh/jamet-julien/animator.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/jamet-julien/animator)
-![Codecov](https://img.shields.io/codecov/c/github/jamet-julien/animator)
-[![npm](https://img.shields.io/npm/dt/animator.svg?style=flat-square)](https://www.npmjs.com/package/animator)
-[![npm](https://img.shields.io/npm/v/animator.svg?style=flat-square)](https://www.npmjs.com/package/animator)
-[![npm](https://img.shields.io/npm/l/animator.svg?style=flat-square)](https://github.com/jamet-julien/animator/blob/master/LICENSE)
+[![CircleCI Status](https://circleci.com/gh/jamet-julien/tiny-animator.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/jamet-julien/tiny-animator)
+![Codecov](https://img.shields.io/codecov/c/github/jamet-julien/tiny-animator)
+[![npm](https://img.shields.io/npm/dt/tiny-animator.svg?style=flat-square)](https://www.npmjs.com/package/tiny-animator)
+[![npm](https://img.shields.io/npm/v/tiny-animator.svg?style=flat-square)](https://www.npmjs.com/package/tiny-animator)
+[![npm](https://img.shields.io/npm/l/tiny-animator.svg?style=flat-square)](https://github.com/jamet-julien/tiny-animator/blob/master/LICENSE)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 > Make a interpolation between states' object with duration
@@ -17,16 +17,16 @@
 
 ## Install <a id="install"></a>
 
-`npm i animator --save`  
+`npm i tiny-animator --save`  
 or  
-`yarn add animator`
+`yarn add tiny-animator`
 
 ---
 
 ### Importing <a id="importing"></a>
 
 ```js
-import Animator from "animator";
+import Animator from "tiny-animator";
 ```
 
 ---

@@ -1,85 +1,85 @@
 {
-  "name": "animator",
-  "version": "0.0.0-development",
-  "description": "Module to create interpolation between state with duration",
-  "main": "dist/index.js",
-  "scripts": {
-    "commit": "git-cz",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "report-coverage": "codecov --token=$CODECOV_TOKEN",
-    "prebuild": "rimraf dist",
-    "build": "npm-run-all --parallel build:*",
-    "build:main": "babel --copy-files --out-dir dist src/index.js",
-    "build:umd": "webpack --output-filename index.umd.js -d",
-    "build:umd.min": "webpack --output-filename index.umd.min.js -p",
-    "semantic-release": "semantic-release"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jamet-julien/animator.git"
-  },
-  "keywords": [],
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "author": "Julien Jamet <jamet.julien@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/jamet-julien/animator/issues"
-  },
-  "homepage": "https://github.com/jamet-julien/animator#readme",
-  "devDependencies": {
-    "@babel/cli": "7.7.4",
-    "@babel/core": "7.7.4",
-    "@babel/preset-env": "7.7.4",
-    "babel-jest": "24.9.0",
-    "babel-loader": "8.0.6",
-    "codecov": "3.7.0",
-    "commitizen": "4.0.3",
-    "cz-conventional-changelog": "3.0.2",
-    "ghooks": "2.0.4",
-    "jest": "24.9.0",
-    "npm-run-all": "4.1.5",
-    "rimraf": "3.0.0",
-    "semantic-release": "^17.0.8",
-    "webpack": "4.41.2",
-    "webpack-cli": "3.3.10"
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
+    "name": "tiny-animator",
+    "version": "0.0.0-development",
+    "description": "Module to create interpolation between state with duration",
+    "main": "dist/index.js",
+    "scripts": {
+        "commit": "git-cz",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "report-coverage": "codecov --token=$CODECOV_TOKEN",
+        "prebuild": "rimraf dist",
+        "build": "npm-run-all --parallel build:*",
+        "build:main": "babel --copy-files --out-dir dist src/index.js",
+        "build:umd": "webpack --output-filename index.umd.js -d",
+        "build:umd.min": "webpack --output-filename index.umd.min.js -p",
+        "semantic-release": "semantic-release"
     },
-    "ghooks": {
-      "pre-commit": "npm t"
-    }
-  },
-  "jest": {
-    "verbose": true,
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src/*.js"
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jamet-julien/animator.git"
+    },
+    "keywords": [],
+    "files": [
+        "dist",
+        "README.md"
     ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 80,
-        "functions": 75,
-        "lines": 95
-      }
-    }
-  },
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "node": "current"
-          }
+    "author": "Julien Jamet <jamet.julien@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/jamet-julien/animator/issues"
+    },
+    "homepage": "https://github.com/jamet-julien/animator#readme",
+    "devDependencies": {
+        "@babel/cli": "7.7.4",
+        "@babel/core": "7.7.4",
+        "@babel/preset-env": "7.7.4",
+        "babel-jest": "24.9.0",
+        "babel-loader": "8.0.6",
+        "codecov": "3.7.0",
+        "commitizen": "4.0.3",
+        "cz-conventional-changelog": "3.0.2",
+        "ghooks": "2.0.4",
+        "jest": "24.9.0",
+        "npm-run-all": "4.1.5",
+        "rimraf": "3.0.0",
+        "webpack": "4.41.2",
+        "webpack-cli": "3.3.10"
+    },
+    "config": {
+        "commitizen": {
+            "path": "node_modules/cz-conventional-changelog"
+        },
+        "ghooks": {
+            "pre-commit": "npm t",
+            "pre-push": "npm publish"
         }
-      ]
-    ]
-  },
-  "dependencies": {}
+    },
+    "jest": {
+        "verbose": true,
+        "collectCoverage": true,
+        "collectCoverageFrom": [
+            "src/*.js"
+        ],
+        "coverageThreshold": {
+            "global": {
+                "branches": 80,
+                "functions": 75,
+                "lines": 95
+            }
+        }
+    },
+    "babel": {
+        "presets": [
+            [
+                "@babel/preset-env",
+                {
+                    "targets": {
+                        "node": "current"
+                    }
+                }
+            ]
+        ]
+    },
+    "dependencies": {}
 }
