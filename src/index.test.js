@@ -59,6 +59,19 @@ describe("Start", () => {
         expect(obj.x).toBe(10);
     });
 
+    it("test progress", () => {
+        let obj = { x: 0 };
+        const instance = Animator(obj, { x: 10 }, { duration: 24 });
+        instance.update(0);
+        expect(instance.progress).toBe(0);
+
+        instance.update(12);
+        expect(instance.progress).toBe(0.5);
+
+        instance.update(24);
+        expect(instance.progress).toBe(1);
+    });
+
     it("Params not object", () => {
         let obj = { size: 0 };
         const instance = Animator(obj, { size: 10 }, 10);

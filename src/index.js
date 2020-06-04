@@ -30,6 +30,7 @@ const Animator = (
     let stateStart = properties.reduce((g, c) => ({ ...g, [c]: obj[c] }), {});
 
     return {
+        progress: 0,
         restart: () => {
             isCancelled = false;
             isRunning = true;
@@ -40,7 +41,7 @@ const Animator = (
             isRunning = true;
             convertTimeToRatio = null;
         },
-        update: (accExt = null) => {
+        update: function (accExt = null) {
             if (isCancelled) return false;
 
             if (convertTimeToRatio === null) {
@@ -49,8 +50,8 @@ const Animator = (
 
             accInt = accExt !== null ? accExt : accInt + 1;
 
-            let ratio = limit(1, 0, convertTimeToRatio(accInt));
-            let ratioTreated = effect(ratio);
+            this.progress = limit(1, 0, convertTimeToRatio(accInt));
+            let ratioTreated = effect(this.progress);
 
             properties.map((attr) => {
                 obj[attr] =
@@ -58,7 +59,7 @@ const Animator = (
                     (stateEnd[attr] - stateStart[attr]) * ratioTreated;
             });
 
-            if (ratio === 1 && isRunning) {
+            if (this.progress === 1 && isRunning) {
                 isRunning = false;
                 params.onComplete && params.onComplete();
             }
