@@ -7,13 +7,18 @@
 [![npm](https://img.shields.io/npm/l/tiny-animator.svg?style=flat-square)](https://github.com/jamet-julien/tiny-animator/blob/master/LICENSE)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-> Make a interpolation between states' object with duration
+Make a interpolation between states' object with duration
 
 ## [Live example](https://codepen.io/jamet-julien)
 
 -   [Install](#install)
 -   [Importing](#importing)
--   [sample](#sample)
+-   [Usage](#Usage)
+-   [Definition](#Definition)
+-   [Methods](#Methods)
+    -   [.restart()](#restart)
+    -   [.stop()](#stop)
+    -   [.update(`num`)](#update)
 
 ## Install <a id="install"></a>
 
@@ -23,7 +28,7 @@ or
 
 ---
 
-### Importing <a id="importing"></a>
+## Importing <a id="importing"></a>
 
 ```js
 import Animator from "tiny-animator";
@@ -31,11 +36,9 @@ import Animator from "tiny-animator";
 
 ---
 
-### Sample<a id="sample"></a>
+### Usage<a id="sample"></a>
 
-> usage animator plugin
-
-script.js file
+How to use Animator
 
 ```js
 let coords = { x: 0, y: 0 };
@@ -65,7 +68,7 @@ requestAnimationFrame(play);
 
 ---
 
-## Implement
+## Definition<a id="Definition"></a>
 
 ```js
 let animate = Animator(obj, target, duration);
@@ -77,7 +80,7 @@ let animate = Animator(obj, target, duration);
 | `target`   | `object`             | Final state                                                  |
 | `duration` | `number` or `object` | `number` to number of steps and `object` to more option      |
 
-### attributes' last argument `object`
+### Attributes of the last argument `object`
 
 ```js
 const params = {
@@ -97,7 +100,7 @@ let animate = Animator(obj, target, params);
 | `effect`     | `function` | call every update to treat time ( easeIn, easeOut, reverse, ... ) |
 | `onComplete` | `function` | call when duration                                                |
 
-#### attribut `effect`
+#### `effect`
 
 Receive numbers range 0-1 and need send number range 0-1;
 
@@ -107,7 +110,7 @@ Receive numbers range 0-1 and need send number range 0-1;
 | `...`  | intermediate state |
 | `1`    | final state        |
 
-##### Exemples
+##### Sample
 
 ```js
 const reverse = (num) => 1 - num;
@@ -119,11 +122,11 @@ const easeIn = (num) => Math.abs(Math.log(num) / 2);
 const easeOut = (num) => Math.log(num) / 2 + 1;
 ```
 
-## Methods <a id="methods"></a>
+## Methods<a id="Methods"></a>
 
 ### .restart() <a id="restart"></a>
 
-init animate and enable function `update`
+Init animate and enable function `update`
 
 ```js
 animate.restart();
@@ -131,7 +134,7 @@ animate.restart();
 
 ### .stop() <a id="stop"></a>
 
-stop animate without launch `onComplete` and disable function `update`
+Stop animate without launch `onComplete` and disable function `update`
 
 ```js
 animate.stop();
@@ -139,11 +142,11 @@ animate.stop();
 
 ### .update(`num`) <a id="update"></a>
 
-update state on the right time with current step
+Update state on the right time with current step
 
-| argument | type     | default | Description                            |
-| :------- | :------- | :------ | :------------------------------------- |
-| `num`    | `number` | `null`  | update state on progress interpolation |
+| argument | type     | default  | Description                            |
+| :------- | :------- | :------- | :------------------------------------- |
+| `num`    | `number` | **null** | update state on progress interpolation |
 
 > The first call define step to 0, the next step will step up to the last one defined by `duration`
 
@@ -151,34 +154,47 @@ update state on the right time with current step
 animate.update();
 ```
 
-#### samples
+#### Samples
 
 With `duration = 10`
 
 ```js
 let cumulateTime = 0;
-animate.update(cumulateTime); // update to 0% of interpolation
+animate.update(cumulateTime);
+console.log(animate.progress); //  .0
 
 cumulateTime = 5;
-animate.update(cumulateTime); // update to 50% of interpolation
+animate.update(cumulateTime);
+console.log(animate.progress); //  .5
 ```
 
 With `duration = 50`
 
 ```js
 let cumulateTime = 0;
-animate.update(cumulateTime); // update to 0% of interpolation
+animate.update(cumulateTime);
+console.log(animate.progress); //  .0
 
 cumulateTime = 5;
-animate.update(cumulateTime); // update to 10% of interpolation
+animate.update(cumulateTime);
+console.log(animate.progress); //  .1
 ```
 
 With `duration = 5` _( call `update` without argument )_
 
 ```js
-animate.update(); // update to 0% of interpolation
-animate.update(); // update to 25% of interpolation
-animate.update(); // update to 50% of interpolation
-animate.update(); // update to 75% of interpolation
-animate.update(); // update to 100% of interpolation
+animate.update();
+console.log(animate.progress); //  .0
+
+animate.update();
+console.log(animate.progress); //  .25
+
+animate.update();
+console.log(animate.progress); //  .50
+
+animate.update();
+console.log(animate.progress); //  .75
+
+animate.update();
+console.log(animate.progress); //  1
 ```
