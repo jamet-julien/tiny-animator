@@ -102,22 +102,18 @@ describe("Start", () => {
         expect(item.x).toBe(0);
     });
 
-    it("onComplete params", () => {
+    it("onComplete params called", () => {
         let item = { x: 0 };
         let text = "start";
+        const onComplete = jest.fn();
 
-        const animate = Animator(
-            item,
-            { x: 10 },
-            { duration: 10, onComplete: () => (text = "finished") }
-        );
+        const animate = Animator(item, { x: 10 }, { duration: 10, onComplete });
         animate.update(0);
-        expect(text).toBe("start");
-
         animate.update(5);
-        expect(text).toBe("start");
+        expect(onComplete).not.toHaveBeenCalled();
 
         animate.update(10);
-        expect(text).toBe("finished");
+        animate.update(20);
+        expect(onComplete).toHaveBeenCalledTimes(1);
     });
 });
