@@ -68,12 +68,12 @@ requestAnimationFrame(play);
 ## Implement
 
 ```js
-let animate = Animator(coords, target, params);
+let animate = Animator(obj, target, params);
 ```
 
 | argument | type     | Description                                                      |
 | :------- | :------- | :--------------------------------------------------------------- |
-| `num`    | `object` | initial state use by reference ( ⚠️ don't use `const` to define) |
+| `obj`    | `object` | initial state use by reference ( ⚠️ don't use `const` to define) |
 | `target` | `object` | final state                                                      |
 | `params` | `object` | all params to use                                                |
 
@@ -97,7 +97,7 @@ const params = {
 
 #### attribut `effect`
 
-> Receive numbers between 0 - 1 and need send number;
+> Receive numbers range 0-1 and need send number range 0-1;
 
 | number | description        |
 | :----- | :----------------- |
@@ -105,16 +105,16 @@ const params = {
 | `...`  | intermediate state |
 | `1`    | final state        |
 
-```js
-const easeInOut = (i) => (Math.cos((i - 1) * Math.PI) + 1) / 2;
-```
+##### Exemples
 
 ```js
-const easeIn = (i) => Math.abs(Math.log(i) / 2);
-```
+const reverse = (num) => 1 - num;
 
-```js
-const easeOut = (i) => Math.log(i) / 2 + 1;
+const easeInOut = (num) => (Math.cos((num - 1) * Math.PI) + 1) / 2;
+
+const easeIn = (num) => Math.abs(Math.log(num) / 2);
+
+const easeOut = (num) => Math.log(num) / 2 + 1;
 ```
 
 ## Methods <a id="methods"></a>
@@ -135,7 +135,7 @@ animate.restart();
 animate.stop();
 ```
 
-### .update() <a id="update"></a>
+### .update(`num`) <a id="update"></a>
 
 > update state on the right time with current step
 
