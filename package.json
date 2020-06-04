@@ -1,6 +1,6 @@
 {
     "name": "tiny-animator",
-    "version": "0.0.0-development",
+    "version": "0.0.0-semantical-release",
     "description": "Module to create interpolation between state with duration",
     "main": "dist/index.js",
     "scripts": {
