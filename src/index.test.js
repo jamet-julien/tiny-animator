@@ -12,6 +12,14 @@ describe("Start", () => {
         expect(instance).toHaveProperty("update");
     });
 
+    it("Target attribute", () => {
+        let obj = { x: 0 };
+        const instance = Animator(obj, { size: 10 }, { duration: 10 });
+        instance.update(0);
+        expect(obj).toHaveProperty("x");
+        expect(obj).not.toHaveProperty("size");
+    });
+
     it("Launched", () => {
         let obj = { x: 0 };
         const instance = Animator(obj, { x: 10 }, { duration: 10 });
@@ -25,6 +33,19 @@ describe("Start", () => {
         expect(obj.x).toBe(10);
     });
 
+    it("Start time", () => {
+        let obj = { x: 0 };
+        const instance = Animator(obj, { x: 10 }, { duration: 10 });
+        instance.update(100);
+        expect(obj.x).toBe(0);
+
+        instance.update(105);
+        expect(obj.x).toBe(5);
+
+        instance.update(110);
+        expect(obj.x).toBe(10);
+    });
+
     it("Change scale time", () => {
         let item = { x: 0 };
         const animate = Animator(item, { x: 100 }, { duration: 20 });
@@ -35,6 +56,14 @@ describe("Start", () => {
         expect(item.x).toBe(50);
 
         animate.update(20);
+        expect(item.x).toBe(100);
+    });
+
+    it("test over time", () => {
+        let item = { x: 0 };
+        const animate = Animator(item, { x: 100 }, { duration: 20 });
+        animate.update(0);
+        animate.update(40);
         expect(item.x).toBe(100);
     });
 
@@ -59,7 +88,7 @@ describe("Start", () => {
         expect(item.x).toBe(100);
     });
 
-    it("Effect params", () => {
+    it("Effect params (reverse) ", () => {
         let item = { x: 0 };
         const animate = Animator(
             item,

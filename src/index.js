@@ -1,6 +1,6 @@
 const Animator = (
-    obj,
-    stateEnd,
+    obj = {},
+    stateEnd = {},
     { duration = Infinity, effect = (i) => i, onComplete = () => {} }
 ) => {
     let timeStart = null;
@@ -45,3 +45,4 @@ const Animator = (
 };
 
 export default Animator;
+export { Animator };
