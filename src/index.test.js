@@ -116,4 +116,15 @@ describe("Start", () => {
         animate.update(20);
         expect(onComplete).toHaveBeenCalledTimes(1);
     });
+
+    it("update without argument", () => {
+        let item = { x: 0 };
+        const animate = Animator(item, { x: 10 }, { duration: 10 });
+
+        for (let i = 0; i < 10; i++) {
+            animate.update();
+        }
+
+        expect(item.x).toBe(10);
+    });
 });

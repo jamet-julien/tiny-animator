@@ -71,11 +71,11 @@ requestAnimationFrame(play);
 let animate = Animator(obj, target, params);
 ```
 
-| argument | type     | Description                                                      |
-| :------- | :------- | :--------------------------------------------------------------- |
-| `obj`    | `object` | initial state use by reference ( ⚠️ don't use `const` to define) |
-| `target` | `object` | final state                                                      |
-| `params` | `object` | all params to use                                                |
+| argument | type     | Description                                                |
+| :------- | :------- | :--------------------------------------------------------- |
+| `obj`    | `object` | Initial state ( ⚠️ don't use `const`. Module use reference |
+| `target` | `object` | Final state                                                |
+| `params` | `object` | All params to use                                          |
 
 ### ARGUMENT : `params`
 
@@ -91,7 +91,7 @@ const params = {
 
 | argument     | type       | Description                                                       |
 | :----------- | :--------- | :---------------------------------------------------------------- |
-| `duration`   | `number`   | initial state use by reference ( ⚠️ don't use `const` to define)  |
+| `duration`   | `number`   | number of steps to arrive on the last state                       |
 | `effect`     | `function` | call every update to treat time ( easeIn, easeOut, reverse, ... ) |
 | `onComplete` | `function` | call when duration                                                |
 
@@ -139,11 +139,44 @@ animate.stop();
 
 > update state on the right time with current step
 
-| argument | type     | Description  |
-| :------- | :------- | :----------- |
-| `num`    | `number` | step current |
+| argument | type     | default | Description                            |
+| :------- | :------- | :------ | :------------------------------------- |
+| `num`    | `number` | `null`  | update state on progress interpolation |
+
+> The first call define step to 0, the next step will step up to the last one defined by `duration`
 
 ```js
-step++;
-animate.update(step);
+animate.update();
+```
+
+#### samples
+
+DURATION = 10
+
+```js
+let cumulateTime = 0;
+animate.update(cumulateTime); // update to 0% of interpolation
+
+cumulate = 5;
+animate.update(cumulateTime); // update to 50% of interpolation
+```
+
+DURATION = 50
+
+```js
+let cumulateTime = 0;
+animate.update(cumulateTime); // update to 0% of interpolation
+
+cumulate = 5;
+animate.update(cumulateTime); // update to 10% of interpolation
+```
+
+DURATION = 5 _( call without argument )_
+
+```js
+animate.update(); // update to 0% of interpolation
+animate.update(); // update to 25% of interpolation
+animate.update(); // update to 50% of interpolation
+animate.update(); // update to 75% of interpolation
+animate.update(); // update to 100% of interpolation
 ```
