@@ -68,16 +68,16 @@ requestAnimationFrame(play);
 ## Implement
 
 ```js
-let animate = Animator(obj, target, params);
+let animate = Animator(obj, target, duration);
 ```
 
-| argument | type     | Description                                                |
-| :------- | :------- | :--------------------------------------------------------- |
-| `obj`    | `object` | Initial state ( ⚠️ don't use `const`. Module use reference |
-| `target` | `object` | Final state                                                |
-| `params` | `object` | All params to use                                          |
+| argument   | type                 | Description                                                  |
+| :--------- | :------------------- | :----------------------------------------------------------- |
+| `obj`      | `object`             | Initial state ( ⚠️ don't use `const`. Module use reference ) |
+| `target`   | `object`             | Final state                                                  |
+| `duration` | `number` or `object` | `number` to number of steps and `object` to more option      |
 
-### ARGUMENT : `params`
+### attributes' last argument `object`
 
 ```js
 const params = {
@@ -87,6 +87,8 @@ const params = {
         console.log("Finiched");
     }
 };
+
+let animate = Animator(obj, target, params);
 ```
 
 | argument     | type       | Description                                                       |
@@ -97,7 +99,7 @@ const params = {
 
 #### attribut `effect`
 
-> Receive numbers range 0-1 and need send number range 0-1;
+Receive numbers range 0-1 and need send number range 0-1;
 
 | number | description        |
 | :----- | :----------------- |
@@ -121,7 +123,7 @@ const easeOut = (num) => Math.log(num) / 2 + 1;
 
 ### .restart() <a id="restart"></a>
 
-> init animate and enable function `update`
+init animate and enable function `update`
 
 ```js
 animate.restart();
@@ -129,7 +131,7 @@ animate.restart();
 
 ### .stop() <a id="stop"></a>
 
-> stop animate without launch `onComplete` and disable function `update`
+stop animate without launch `onComplete` and disable function `update`
 
 ```js
 animate.stop();
@@ -137,7 +139,7 @@ animate.stop();
 
 ### .update(`num`) <a id="update"></a>
 
-> update state on the right time with current step
+update state on the right time with current step
 
 | argument | type     | default | Description                            |
 | :------- | :------- | :------ | :------------------------------------- |
@@ -151,7 +153,7 @@ animate.update();
 
 #### samples
 
-DURATION = 10
+With `duration = 10`
 
 ```js
 let cumulateTime = 0;
@@ -161,7 +163,7 @@ cumulateTime = 5;
 animate.update(cumulateTime); // update to 50% of interpolation
 ```
 
-DURATION = 50
+With `duration = 50`
 
 ```js
 let cumulateTime = 0;
@@ -171,7 +173,7 @@ cumulateTime = 5;
 animate.update(cumulateTime); // update to 10% of interpolation
 ```
 
-DURATION = 5 _( call without argument )_
+With `duration = 5` _( call `update` without argument )_
 
 ```js
 animate.update(); // update to 0% of interpolation
