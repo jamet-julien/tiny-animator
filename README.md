@@ -157,7 +157,7 @@ DURATION = 10
 let cumulateTime = 0;
 animate.update(cumulateTime); // update to 0% of interpolation
 
-cumulate = 5;
+cumulateTime = 5;
 animate.update(cumulateTime); // update to 50% of interpolation
 ```
 
@@ -167,7 +167,7 @@ DURATION = 50
 let cumulateTime = 0;
 animate.update(cumulateTime); // update to 0% of interpolation
 
-cumulate = 5;
+cumulateTime = 5;
 animate.update(cumulateTime); // update to 10% of interpolation
 ```
 
