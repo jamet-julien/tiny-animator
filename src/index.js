@@ -1,12 +1,30 @@
+const makeConvertTimeToRatio = (stepStart, duration) => (stepCurrent) =>
+    (stepCurrent - stepStart) / duration;
+
+const isRequired = (params) => {
+    throw `${params} param is required`;
+};
+
+function isNumber(value) {
+    return typeof value === "number" && isFinite(value);
+}
+
+const limit = (max, min, value) => Math.max(Math.min(max, value), min);
+
 const Animator = (
-    obj = {},
-    stateEnd = {},
-    { duration = Infinity, effect = (i) => i, onComplete = () => {} }
+    obj = isRequired("first"),
+    stateEnd = isRequired("second"),
+    params = isRequired("third")
 ) => {
-    let timeStart = null;
+    let accInt = 0;
+    let convertTimeToRatio = null;
+    let duration = isNumber(params)
+        ? params
+        : params.duration || isRequired("{duration}");
+    let effect = params.effect || ((i) => i);
+
     let isRunning = true;
     let isCancelled = false;
-    let steps = 0;
 
     let properties = Object.keys(stateEnd).filter((attr) => attr in obj);
     let stateStart = properties.reduce((g, c) => ({ ...g, [c]: obj[c] }), {});
@@ -15,34 +33,34 @@ const Animator = (
         restart: () => {
             isCancelled = false;
             isRunning = true;
-            timeStart = null;
+            convertTimeToRatio = null;
         },
         stop: () => {
             isCancelled = true;
             isRunning = true;
-            timeStart = null;
+            convertTimeToRatio = null;
         },
-        update: (timeCurrent = null) => {
+        update: (accExt = null) => {
             if (isCancelled) return false;
 
-            if (timeStart === null) {
-                timeStart = timeCurrent || 0;
+            if (convertTimeToRatio === null) {
+                convertTimeToRatio = makeConvertTimeToRatio(accExt, duration);
             }
 
-            steps = timeCurrent !== null ? timeCurrent : steps + 1;
+            accInt = accExt !== null ? accExt : accInt + 1;
 
-            let time = Math.min(1, (steps - timeStart) / duration);
+            let ratio = limit(1, 0, convertTimeToRatio(accInt));
+            let ratioTreated = effect(ratio);
 
-            let value = effect(time);
             properties.map((attr) => {
                 obj[attr] =
                     stateStart[attr] +
-                    (stateEnd[attr] - stateStart[attr]) * value;
+                    (stateEnd[attr] - stateStart[attr]) * ratioTreated;
             });
 
-            if (time === 1 && isRunning) {
+            if (ratio === 1 && isRunning) {
                 isRunning = false;
-                onComplete && onComplete();
+                params.onComplete && params.onComplete();
             }
         }
     };

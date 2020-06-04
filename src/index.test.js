@@ -20,6 +20,32 @@ describe("Start", () => {
         expect(obj).not.toHaveProperty("size");
     });
 
+    it("test Error", () => {
+        try {
+            const instance = Animator();
+        } catch (e) {
+            expect(e).toEqual("first param is required");
+        }
+
+        try {
+            const instance = Animator({});
+        } catch (e) {
+            expect(e).toEqual("second param is required");
+        }
+
+        try {
+            const instance = Animator({}, {});
+        } catch (e) {
+            expect(e).toEqual("third param is required");
+        }
+
+        try {
+            const instance = Animator({}, {}, {});
+        } catch (e) {
+            expect(e).toEqual("{duration} param is required");
+        }
+    });
+
     it("Launched", () => {
         let obj = { x: 0 };
         const instance = Animator(obj, { x: 10 }, { duration: 10 });
@@ -31,6 +57,16 @@ describe("Start", () => {
 
         instance.update(10);
         expect(obj.x).toBe(10);
+    });
+
+    it("Params not object", () => {
+        let obj = { size: 0 };
+        const instance = Animator(obj, { size: 10 }, 10);
+        instance.update(0);
+        expect(obj.size).toBe(0);
+
+        instance.update(10);
+        expect(obj.size).toBe(10);
     });
 
     it("Start time", () => {
@@ -104,7 +140,6 @@ describe("Start", () => {
 
     it("onComplete params called", () => {
         let item = { x: 0 };
-        let text = "start";
         const onComplete = jest.fn();
 
         const animate = Animator(item, { x: 10 }, { duration: 10, onComplete });
